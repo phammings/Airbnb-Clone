@@ -1,1 +1,3 @@
-spring.application.name=server
+spring:
+  liquibase:
+    contexts: dev
