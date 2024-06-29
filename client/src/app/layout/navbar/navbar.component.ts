@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {ButtonModule} from "primeng/button";
@@ -8,6 +8,7 @@ import {MenuItem} from "primeng/api";
 
 import {CategoryComponent} from "./category/category.component";
 import {AvatarComponent} from "./avatar/avatar.component";
+import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-navbar',
@@ -29,6 +30,8 @@ export class NavbarComponent implements OnInit {
   guests = "Add guests";
   dates = "Any week";
 
+  toastService = inject(ToastService);
+
   // login = () => this.authService.login();
 
   // logout = () => this.authService.logout();
@@ -37,6 +40,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchMenu();
+    this.toastService.send({severity: "info", summary: "Welcome to the airbnb app"});
   }
 
   private fetchMenu() {
