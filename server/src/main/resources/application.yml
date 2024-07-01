@@ -11,6 +11,10 @@ spring:
     name: airbnb-clone-back
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/airbnb_clone
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
     hikari:
       poolName: Hikari
       auto-commit: false
