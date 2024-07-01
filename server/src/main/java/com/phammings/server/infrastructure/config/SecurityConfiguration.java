@@ -1,4 +1,4 @@
-package com.phammings.server.user.infrastructure.config;
+package com.phammings.server.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

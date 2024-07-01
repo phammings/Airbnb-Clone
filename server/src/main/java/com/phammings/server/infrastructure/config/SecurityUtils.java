@@ -1,4 +1,4 @@
-package com.phammings.server.user.infrastructure.config;
+package com.phammings.server.infrastructure.config;
 
 import com.phammings.server.user.domain.Authority;
 import com.phammings.server.user.domain.User;
