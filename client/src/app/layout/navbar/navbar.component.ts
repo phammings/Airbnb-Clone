@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit {
   logout = () => this.authService.logout();
 
   currentMenuItems: MenuItem[] | undefined = [];
-  private connectedUser: User = {email: this.authService.notConnected}
+  connectedUser: User = {email: this.authService.notConnected}
 
   constructor() {
     effect(()=> {
