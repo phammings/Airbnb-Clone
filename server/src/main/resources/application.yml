@@ -2,7 +2,7 @@ logging:
   level:
     ROOT: INFO
     org.hibernate.SQL: DEBUG
-    fr.codecake.airbnbcloneback: DEBUG
+    com.phammings.serverback: DEBUG
 
 spring:
   profiles:
