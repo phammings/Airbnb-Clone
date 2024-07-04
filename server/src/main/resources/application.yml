@@ -2,7 +2,7 @@ logging:
   level:
     ROOT: INFO
     org.hibernate.SQL: DEBUG
-    fr.codecake.airbnbcloneback: DEBUG
+    com.phammings.serverback: DEBUG
 
 spring:
   profiles:
@@ -18,7 +18,7 @@ spring:
     hikari:
       poolName: Hikari
       auto-commit: false
-  data:
+    data:
     jpa:
       repositories:
         bootstrap-mode: deferred
@@ -44,11 +44,11 @@ server:
   port: 8080
 
 okta:
-   oauth2:
-     issuer: https://dev-xqrv0tv2lnvtpqh1.ca.auth0.com/
-     client-id: ${AUTH0_CLIENT_ID}
-     client-secret: ${AUTH0_CLIENT_SECRET}
+  oauth2:
+    issuer: https://dev-xqrv0tv2lnvtpqh1.ca.auth0.com/
+    client-id: ${AUTH0_CLIENT_ID}
+    client-secret: ${AUTH0_CLIENT_SECRET}
 
 application:
   auth0:
-    role-landlord-id: rol_J89Mp7c7UpwnyeAA
+    role-landlord-id: rol_v1CpFU8josLg8YjC
