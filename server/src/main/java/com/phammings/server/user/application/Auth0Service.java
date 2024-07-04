@@ -8,7 +8,6 @@ import com.auth0.json.auth.TokenHolder;
 import com.auth0.json.mgmt.users.User;
 import com.auth0.net.Response;
 import com.auth0.net.TokenRequest;
-import com.phammings.server.user.application.dto.ReadUserDTO;
 import com.phammings.server.infrastructure.config.SecurityUtils;
 import com.phammings.server.user.application.dto.ReadUserDTO;
 import org.springframework.beans.factory.annotation.Value;
