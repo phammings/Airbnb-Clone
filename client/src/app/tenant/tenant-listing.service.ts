@@ -5,8 +5,6 @@ import {State} from "../core/model/state.model";
 import {createPaginationOption, Page, Pagination} from "../core/model/request.model";
 import {CategoryName} from "../layout/navbar/category/category.model";
 import {environment} from "../../environments/environment";
-import {Subject} from "rxjs";
-import {Search} from "./search/search.model";
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +20,6 @@ export class TenantListingService {
   private getOneByPublicId$: WritableSignal<State<Listing>>
     = signal(State.Builder<Listing>().forInit())
   getOneByPublicIdSig = computed(() => this.getOneByPublicId$());
-
-  private search$: Subject<State<Page<CardListing>>> =
-    new Subject<State<Page<CardListing>>>();
-  search = this.search$.asObservable();
 
   constructor() { }
 
@@ -55,14 +49,5 @@ export class TenantListingService {
 
   resetGetOneByPublicId(): void {
     this.getOneByPublicId$.set(State.Builder<Listing>().forInit())
-  }
-
-  searchListing(newSearch: Search, pageRequest: Pagination): void {
-    const params = createPaginationOption(pageRequest);
-    this.http.post<Page<CardListing>>(`${environment.API_URL}/tenant-listing/search`, newSearch, {params})
-      .subscribe({
-        next: displayListingCards => this.search$.next(State.Builder<Page<CardListing>>().forSuccess(displayListingCards)),
-        error: err => this.search$.next(State.Builder<Page<CardListing>>().forError(err))
-      })
   }
 }

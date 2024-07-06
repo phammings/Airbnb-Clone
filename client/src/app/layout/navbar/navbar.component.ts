@@ -11,9 +11,6 @@ import {ToastService} from "../toast.service";
 import {AuthService} from "../../core/auth/auth.service";
 import {User} from "../../core/model/user.model";
 import {PropertiesCreateComponent} from "../../landlord/properties-create/properties-create.component";
-import {SearchComponent} from "../../tenant/search/search.component";
-import {ActivatedRoute} from "@angular/router";
-import dayjs from "dayjs";
 
 @Component({
   selector: 'app-navbar',
@@ -39,7 +36,6 @@ export class NavbarComponent implements OnInit {
   toastService = inject(ToastService);
   authService = inject(AuthService);
   dialogService = inject(DialogService);
-  activatedRoute = inject(ActivatedRoute);
   ref: DynamicDialogRef | undefined;
 
   login = () => this.authService.login();
@@ -49,7 +45,6 @@ export class NavbarComponent implements OnInit {
   currentMenuItems: MenuItem[] | undefined = [];
 
   connectedUser: User = {email: this.authService.notConnected};
-
 
   constructor() {
     effect(() => {
@@ -62,7 +57,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.fetch(false);
-    this.extractInformationForSearch();
   }
 
   private fetchMenu(): MenuItem[] {
@@ -116,34 +110,5 @@ export class NavbarComponent implements OnInit {
         modal: true,
         showHeader: true
       })
-  }
-
-  openNewSearch(): void {
-    this.ref = this.dialogService.open(SearchComponent,
-      {
-        width: "40%",
-        header: "Search",
-        closable: true,
-        focusOnShow: true,
-        modal: true,
-        showHeader: true
-      });
-  }
-
-  private extractInformationForSearch(): void {
-    this.activatedRoute.queryParams.subscribe({
-      next: params => {
-        if (params["location"]) {
-          this.location = params["location"];
-          this.guests = params["guests"] + " Guests";
-          this.dates = dayjs(params["startDate"]).format("MMM-DD")
-            + " to " + dayjs(params["endDate"]).format("MMM-DD");
-        } else if (this.location !== "Anywhere") {
-          this.location = "Anywhere";
-          this.guests = "Add guests";
-          this.dates = "Any week";
-        }
-      }
-    })
   }
 }
