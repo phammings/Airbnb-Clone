@@ -30,9 +30,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "./node_modules/leaflet/dist/leaflet.css",
-              "./node_modules/leaflet-geosearch/dist/geosearch.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -55,23 +53,13 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.development.ts"
-                }
-              ]
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "airbnb-clone-front:build",
-            "proxyConfig": "proxy.conf.mjs"
-          },
           "configurations": {
             "production": {
               "buildTarget": "airbnb-clone-front:build:production"
