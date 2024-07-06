@@ -70,4 +70,27 @@ export class BookingService {
   resetCreateBooking() {
     this.createBooking$.set(State.Builder<boolean>().forInit());
   }
+
+  getBookedListing(): void {
+    this.http.get<Array<BookedListing>>(`${environment.API_URL}/booking/get-booked-listing`)
+      .subscribe({
+        next: bookedListings =>
+          this.getBookedListing$.set(State.Builder<Array<BookedListing>>().forSuccess(bookedListings)),
+        error: err => this.getBookedListing$.set(State.Builder<Array<BookedListing>>().forError(err)),
+      });
+  }
+
+  cancel(bookingPublicId: string, listingPublicId: string): void {
+   const params = new HttpParams().set("bookingPublicId", bookingPublicId)
+      .set("listingPublicId", listingPublicId);
+   this.http.delete<string>(`${environment.API_URL}/booking/cancel`, {params})
+     .subscribe({
+       next: canceledPublicId => this.cancel$.set(State.Builder<string>().forSuccess(canceledPublicId)),
+       error: err => this.cancel$.set(State.Builder<string>().forError(err)),
+     });
+  }
+
+  resetCancel(): void {
+    this.cancel$.set(State.Builder<string>().forInit());
+  }
 }
