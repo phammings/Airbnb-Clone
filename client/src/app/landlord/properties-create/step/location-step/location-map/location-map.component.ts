@@ -98,6 +98,12 @@ export class LocationMapComponent {
   }
 
   private changeMapLocation(term: string) {
+    const icon = {
+      icon: L.icon({
+        iconUrl: "assets/marker-icon.png",
+        shadowUrl: "assets/marker-shadow.png"
+     })
+    };
     this.currentLocation = this.countries.find(country => country.cca3 === term);
     if (this.currentLocation) {
       this.provider!.search({query: this.currentLocation.name.common})
@@ -105,7 +111,7 @@ export class LocationMapComponent {
           if (results && results.length > 0) {
             const firstResult = results[0];
             this.map!.setView(new L.LatLng(firstResult.y, firstResult.x), 13);
-            L.marker([firstResult.y, firstResult.x])
+            L.marker([firstResult.y, firstResult.x], icon)
               .addTo(this.map!)
               .bindPopup(firstResult.label)
               .openPopup();
