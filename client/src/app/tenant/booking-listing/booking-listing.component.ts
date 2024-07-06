@@ -12,8 +12,8 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
     CardListingComponent,
     FaIconComponent
   ],
-  templateUrl: './booked-listing.component.html',
-  styleUrl: './booked-listing.component.scss'
+  templateUrl: './booking-listing.component.html',
+  styleUrl: './booking-listing.component.scss'
 })
 export class BookingListingComponent implements OnInit, OnDestroy {
 
