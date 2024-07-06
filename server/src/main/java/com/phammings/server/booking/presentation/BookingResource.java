@@ -4,12 +4,14 @@ import com.phammings.server.booking.application.BookingService;
 import com.phammings.server.booking.application.dto.BookedDateDTO;
 import com.phammings.server.booking.application.dto.BookedListingDTO;
 import com.phammings.server.booking.application.dto.NewBookingDTO;
+import com.phammings.server.infrastructure.config.SecurityUtils;
 import com.phammings.server.sharedkernel.service.State;
 import com.phammings.server.sharedkernel.service.StatusNotification;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,13 +49,21 @@ public class BookingResource {
     }
 
     @DeleteMapping("cancel")
-    public ResponseEntity<UUID> cancel(@RequestParam UUID bookingPublicId, @RequestParam UUID listingPublicId) {
-        State<UUID, String> cancelState = bookingService.cancel(bookingPublicId, listingPublicId);
+    public ResponseEntity<UUID> cancel(@RequestParam UUID bookingPublicId,
+                                       @RequestParam UUID listingPublicId,
+                                       @RequestParam boolean byLandlord) {
+        State<UUID, String> cancelState = bookingService.cancel(bookingPublicId, listingPublicId, byLandlord);
         if (cancelState.getStatus().equals(StatusNotification.ERROR)) {
             ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, cancelState.getError());
             return ResponseEntity.of(problemDetail).build();
         } else {
             return ResponseEntity.ok(bookingPublicId);
         }
+    }
+
+    @GetMapping("get-booked-listing-for-landlord")
+    @PreAuthorize("hasAnyRole('" + SecurityUtils.ROLE_LANDLORD + "')")
+    public ResponseEntity<List<BookedListingDTO>> getBookedListingForLandlord() {
+        return ResponseEntity.ok(bookingService.getBookedListingForLandlord());
     }
 }
