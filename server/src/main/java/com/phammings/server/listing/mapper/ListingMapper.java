@@ -1,6 +1,6 @@
 package com.phammings.server.listing.mapper;
 
-import com.phammings.server.booking.application.dto.ListingCreateBookingDTO;
+import com.phammings.server.listing.application.dto.ListingCreateBookingDTO;
 import com.phammings.server.listing.application.dto.*;
 import com.phammings.server.listing.application.dto.vo.PriceVO;
 import com.phammings.server.listing.domain.Listing;

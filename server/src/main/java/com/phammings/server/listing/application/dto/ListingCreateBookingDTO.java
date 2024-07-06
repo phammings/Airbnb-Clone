@@ -1,4 +1,4 @@
-package com.phammings.server.booking.application.dto;
+package com.phammings.server.listing.application.dto;
 
 import com.phammings.server.listing.application.dto.vo.PriceVO;
 
