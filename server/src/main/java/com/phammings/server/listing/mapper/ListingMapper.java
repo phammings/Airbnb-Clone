@@ -1,9 +1,7 @@
 package com.phammings.server.listing.mapper;
 
-import com.phammings.server.listing.application.dto.CreatedListingDTO;
-import com.phammings.server.listing.application.dto.DisplayCardListingDTO;
-import com.phammings.server.listing.application.dto.SaveListingDTO;
-import com.phammings.server.listing.application.dto.DisplayListingDTO;
+import com.phammings.server.listing.application.dto.ListingCreateBookingDTO;
+import com.phammings.server.listing.application.dto.*;
 import com.phammings.server.listing.application.dto.vo.PriceVO;
 import com.phammings.server.listing.domain.Listing;
 import org.mapstruct.Mapper;
@@ -52,4 +50,7 @@ public interface ListingMapper {
     @Mapping(target = "category", source = "bookingCategory")
     @Mapping(target = "price.value", source = "price")
     DisplayListingDTO listingToDisplayListingDTO(Listing listing);
+
+    @Mapping(target = "listingPublicId", source = "publicId")
+    ListingCreateBookingDTO mapListingToListingCreateBookingDTO(Listing listing);
 }
