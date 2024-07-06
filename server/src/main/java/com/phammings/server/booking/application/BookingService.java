@@ -6,6 +6,7 @@ import com.phammings.server.booking.application.dto.NewBookingDTO;
 import com.phammings.server.booking.domain.Booking;
 import com.phammings.server.booking.mapper.BookingMapper;
 import com.phammings.server.booking.repository.BookingRepository;
+import com.phammings.server.infrastructure.config.SecurityUtils;
 import com.phammings.server.listing.application.LandlordService;
 import com.phammings.server.listing.application.dto.DisplayCardListingDTO;
 import com.phammings.server.listing.application.dto.ListingCreateBookingDTO;
@@ -74,6 +75,7 @@ public class BookingService {
         return bookingRepository.findAllByFkListing(publicId)
                 .stream().map(bookingMapper::bookingToCheckAvailability).toList();
     }
+
     @Transactional(readOnly = true)
     public List<BookedListingDTO> getBookedListing() {
         ReadUserDTO connectedUser = userService.getAuthenticatedUserFromSecurityContext();
@@ -99,14 +101,38 @@ public class BookingService {
     }
 
     @Transactional
-    public State<UUID, String> cancel(UUID bookingPublicId, UUID listingPublicId) {
+    public State<UUID, String> cancel(UUID bookingPublicId, UUID listingPublicId, boolean byLandlord) {
         ReadUserDTO connectedUser = userService.getAuthenticatedUserFromSecurityContext();
-        int deleteSuccess = bookingRepository.deleteBookingByFkTenantAndPublicId(connectedUser.publicId(), bookingPublicId);
+        int deleteSuccess = 0;
 
-        if(deleteSuccess >= 1) {
+        if (SecurityUtils.hasCurrentUserAnyOfAuthorities(SecurityUtils.ROLE_LANDLORD)
+                && byLandlord) {
+            deleteSuccess = handleDeletionForLandlord(bookingPublicId, listingPublicId, connectedUser, deleteSuccess);
+        } else {
+            deleteSuccess = bookingRepository.deleteBookingByFkTenantAndPublicId(connectedUser.publicId(), bookingPublicId);
+        }
+
+        if (deleteSuccess >= 1) {
             return State.<UUID, String>builder().forSuccess(bookingPublicId);
         } else {
             return State.<UUID, String>builder().forError("Booking not found");
         }
+    }
+
+    private int handleDeletionForLandlord(UUID bookingPublicId, UUID listingPublicId, ReadUserDTO connectedUser, int deleteSuccess) {
+        Optional<DisplayCardListingDTO> listingVerificationOpt = landlordService.getByPublicIdAndLandlordPublicId(listingPublicId, connectedUser.publicId());
+        if (listingVerificationOpt.isPresent()) {
+            deleteSuccess = bookingRepository.deleteBookingByPublicIdAndFkListing(bookingPublicId, listingVerificationOpt.get().publicId());
+        }
+        return deleteSuccess;
+    }
+
+    @Transactional(readOnly = true)
+    public List<BookedListingDTO> getBookedListingForLandlord() {
+        ReadUserDTO connectedUser = userService.getAuthenticatedUserFromSecurityContext();
+        List<DisplayCardListingDTO> allProperties = landlordService.getAllProperties(connectedUser);
+        List<UUID> allPropertyPublicIds = allProperties.stream().map(DisplayCardListingDTO::publicId).toList();
+        List<Booking> allBookings = bookingRepository.findAllByFkListingIn(allPropertyPublicIds);
+        return mapBookingToBookedListing(allBookings, allProperties);
     }
 }
