@@ -1,7 +1,7 @@
 import {computed, inject, Injectable, signal, WritableSignal} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {State} from "../../core/model/state.model";
-import {BookedDatesDTOFromClient, BookedDatesDTOFromServer, CreateBooking} from "../model/booking.model";
+import {BookedDatesDTOFromClient, BookedDatesDTOFromServer, BookedListing, CreateBooking} from "../model/booking.model";
 import {environment} from "../../../environments/environment";
 import {map} from "rxjs";
 import dayjs from "dayjs";
@@ -21,6 +21,13 @@ export class BookingService {
     = signal(State.Builder<Array<BookedDatesDTOFromClient>>().forInit());
   checkAvailabilitySig = computed(() => this.checkAvailability$());
 
+  private getBookedListing$: WritableSignal<State<Array<BookedListing>>>
+    = signal(State.Builder<Array<BookedListing>>().forInit());
+  getBookedListingSig = computed(() => this.getBookedListing$());
+
+  private cancel$: WritableSignal<State<string>>
+    = signal(State.Builder<string>().forInit());
+  cancelSig = computed(() => this.cancel$());
 
   create(newBooking: CreateBooking) {
     this.http.post<boolean>(`${environment.API_URL}/booking/create`, newBooking)
