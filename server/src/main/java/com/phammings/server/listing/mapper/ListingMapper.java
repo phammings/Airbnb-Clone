@@ -1,10 +1,6 @@
 package com.phammings.server.listing.mapper;
 
-import com.phammings.server.listing.application.dto.CreatedListingDTO;
-import com.phammings.server.listing.application.dto.DisplayCardListingDTO;
-import com.phammings.server.listing.application.dto.SaveListingDTO;
-import com.phammings.server.listing.application.dto.DisplayListingDTO;
-import com.phammings.server.listing.application.dto.vo.PriceVO;
+import com.phammings.server.listing.application.dto.*;
 import com.phammings.server.listing.domain.Listing;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
