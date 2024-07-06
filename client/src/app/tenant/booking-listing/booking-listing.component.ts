@@ -15,7 +15,7 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
   templateUrl: './booked-listing.component.html',
   styleUrl: './booked-listing.component.scss'
 })
-export class BookedListingComponent implements OnInit, OnDestroy {
+export class BookingListingComponent implements OnInit, OnDestroy {
 
   bookingService = inject(BookingService);
   toastService = inject(ToastService);
