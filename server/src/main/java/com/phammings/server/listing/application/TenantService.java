@@ -1,7 +1,9 @@
 package com.phammings.server.listing.application;
 
+import com.phammings.server.booking.application.BookingService;
 import com.phammings.server.listing.application.dto.DisplayCardListingDTO;
 import com.phammings.server.listing.application.dto.DisplayListingDTO;
+import com.phammings.server.listing.application.dto.SearchDTO;
 import com.phammings.server.listing.application.dto.sub.LandlordListingDTO;
 import com.phammings.server.listing.domain.BookingCategory;
 import com.phammings.server.listing.domain.Listing;
@@ -11,10 +13,12 @@ import com.phammings.server.sharedkernel.service.State;
 import com.phammings.server.user.application.UserService;
 import com.phammings.server.user.application.dto.ReadUserDTO;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,12 +30,14 @@ public class TenantService {
     private final ListingMapper listingMapper;
 
     private final UserService userService;
+    private final BookingService bookingService;
 
 
-    public TenantService(ListingRepository listingRepository, ListingMapper listingMapper, UserService userService) {
+    public TenantService(ListingRepository listingRepository, ListingMapper listingMapper, UserService userService, BookingService bookingService) {
         this.listingRepository = listingRepository;
         this.listingMapper = listingMapper;
         this.userService = userService;
+        this.bookingService = bookingService;
     }
 
     public Page<DisplayCardListingDTO> getAllByCategory(Pageable pageable, BookingCategory category) {
@@ -60,5 +66,25 @@ public class TenantService {
         displayListingDTO.setLandlord(landlordListingDTO);
 
         return State.<DisplayListingDTO, String>builder().forSuccess(displayListingDTO);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<DisplayCardListingDTO> search(Pageable pageable, SearchDTO newSearch) {
+
+        Page<Listing> allMatchedListings = listingRepository.findAllByLocationAndBathroomsAndBedroomsAndGuestsAndBeds(pageable, newSearch.location(),
+                newSearch.infos().baths().value(),
+                newSearch.infos().bedrooms().value(),
+                newSearch.infos().guests().value(),
+                newSearch.infos().beds().value());
+
+        List<UUID> listingUUIDs = allMatchedListings.stream().map(Listing::getPublicId).toList();
+
+        List<UUID> bookingUUIDs = bookingService.getBookingMatchByListingIdsAndBookedDate(listingUUIDs, newSearch.dates());
+
+        List<DisplayCardListingDTO> listingsNotBooked = allMatchedListings.stream().filter(listing -> !bookingUUIDs.contains(listing.getPublicId()))
+                .map(listingMapper::listingToDisplayCardListingDTO)
+                .toList();
+
+        return new PageImpl<>(listingsNotBooked, pageable, listingsNotBooked.size());
     }
 }
