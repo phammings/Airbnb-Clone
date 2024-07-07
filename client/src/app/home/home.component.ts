@@ -5,10 +5,12 @@ import {CategoryService} from "../layout/navbar/category/category.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CardListing} from "../landlord/model/listing.model";
 import {Pagination} from "../core/model/request.model";
-import {Subscription} from "rxjs";
+import {filter, Subscription} from "rxjs";
 import {Category} from "../layout/navbar/category/category.model";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {CardListingComponent} from "../shared/card-listing/card-listing.component";
+import {Search} from "../tenant/search/search.model";
+import dayjs from "dayjs";
 
 @Component({
   selector: 'app-home',
@@ -35,9 +37,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   loading = false;
 
   categoryServiceSubscription: Subscription | undefined;
+  searchIsLoading = false;
+  emptySearch = false;
+  private searchSubscription: Subscription | undefined;
 
   constructor() {
     this.listenToGetAllCategory();
+    this.listenToSearch();
   }
 
   ngOnDestroy(): void {
@@ -46,9 +52,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.categoryServiceSubscription) {
       this.categoryServiceSubscription.unsubscribe();
     }
+
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
   }
 
   ngOnInit(): void {
+    this.startNewSearch();
     this.listenToChangeCategory()
   }
 
@@ -56,7 +67,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.categoryServiceSubscription = this.categoryService.changeCategoryObs.subscribe({
       next: (category: Category) => {
         this.loading = true;
-        this.tenantListingService.getAllByCategory(this.pageRequest, category.technicalName);
+        if (!this.searchIsLoading) {
+          this.tenantListingService.getAllByCategory(this.pageRequest, category.technicalName);
+        }
       }
     })
   }
@@ -67,6 +80,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (categoryListingsState.status === "OK") {
         this.listings = categoryListingsState.value?.content;
         this.loading = false;
+        this.emptySearch = false;
       } else if (categoryListingsState.status === "ERROR") {
         this.toastService.send({
           severity: "error", detail: "Error when fetching the listing", summary: "Error",
