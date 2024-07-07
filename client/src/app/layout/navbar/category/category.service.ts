@@ -161,5 +161,4 @@ export class CategoryService {
     return this.categories.find(category => category.technicalName === technicalName);
   }
 
-  constructor() { }
 }
