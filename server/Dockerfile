@@ -3,10 +3,13 @@
 # Stage 1: Build the Spring Boot application
 FROM eclipse-temurin:21-jdk AS build
 
+# RUN dos2unix mvnw on git bash if ./mvnw cmd not found
+
 WORKDIR /app
 
 COPY pom.xml mvnw ./
 COPY .mvn .mvn
+RUN chmod +x ./mvnw
 RUN ./mvnw dependency:go-offline
 
 COPY src src

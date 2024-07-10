@@ -25,6 +25,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/airbnb_clone
       - SPRING_DATASOURCE_USERNAME=secret
       - SPRING_DATASOURCE_PASSWORD=secret
+      - SPRING_DATASOURCE_SCHEMA=airbnb_clone
       - AUTH0_CLIENT_ID=${AUTH0_CLIENT_ID}
       - AUTH0_CLIENT_SECRET=${AUTH0_CLIENT_SECRET}
     depends_on:
