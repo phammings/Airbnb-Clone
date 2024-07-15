@@ -75,9 +75,27 @@ AUTH0_CLIENT_ID=
 AUTH0_CLIENT_SECRET=
 ```
 
+##### Auth0 Setup
+
+- Create a Java Sprinboot Auth0 application. Ensure the following details are added:
+  - Under application settings:
+    - Replace ```Domain```, ```Client ID```, ```Client Secret``` on ```application.yml``` (inside server/src/main/resources and .env above)
+    - Allowed Callback URLs: ```http://backend:8080/login/oauth2/code/okta```, ```http://localhost:8080/login/oauth2/code/okta```, ```http://localhost:4200/login/oauth2/code/okta```, ```http://frontend:4200/login/oauth2/code/okta```
+    - Allowed Logout URLs and Allowed Web Origins: ```http://localhost:4200```
+    - Allow Cross-Origin Authentication and CORS: ```http://localhost:4200```
+  - Under Application APIs Machine To Machine Applications:
+    - Ensure Permissions are on for:
+      - read:client_grants, create:client_grants, delete:client_grants, update:client_grants, read:users, update:users, delete:users, create:users, read:users_app_metadata, update:users_app_metadata, create:users_app_metadata, read:roles, update:roles, read:role_members
+  - Under User Management Roles:
+    - Ensure Roles are created for:
+      - ```ROLE_ADMIN```, ```ROLE_LANDLORD```, ```ROLE_TENANT```
+      - Under  ```ROLE_Landlord```, get the Role ID and replace that in the application.yml
+
+
+
 <br/>
 
-#### 2a) Docker installtion
+#### 2a) Docker Installtion (Recommended)
 - Ensure Docker is installed and running on your system
     - See https://docs.docker.com/ for installation instructions
 1) Build the Docker image and ensure no previous cache is used:
@@ -89,14 +107,13 @@ AUTH0_CLIENT_SECRET=
     <br/>
 
 
-#### 2b) Setup .env file from .env.example
-- Manual Installation:
-    - Client frontend:
-        1) ```npm install```
-        2) ```ng serve```
-    - Server backend:
-        1) ```maven clean install```
-        2) ```mvn spring-boot:run```
+#### 2b) Manual Installation
+  - Client frontend:
+      1) ```npm install```
+      2) ```ng serve```
+  - Server backend:
+      1) ```maven clean install```
+      2) ```mvn spring-boot:run```
 
 
 - In the case that liquibase cannot find the airbnb_clone database:
