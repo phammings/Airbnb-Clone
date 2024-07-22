@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  postgres:
+    image: 'postgres:latest'
+    volumes:
+      - ~/volumes/phammings/postgresql/:/var/lib/postgresql/data
+      - ./server/init-db:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=secret
+      - POSTGRES_DB=airbnb_clone
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U secret"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./server
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/airbnb_clone
+      - SPRING_DATASOURCE_USERNAME=secret
+      - SPRING_DATASOURCE_PASSWORD=secret
+      - SPRING_DATASOURCE_SCHEMA=airbnb_clone
+      - AUTH0_CLIENT_ID=${AUTH0_CLIENT_ID}
+      - AUTH0_CLIENT_SECRET=${AUTH0_CLIENT_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build: ./client
+    ports:
+      - 4200:4200
