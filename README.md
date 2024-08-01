@@ -117,11 +117,11 @@ AUTH0_CLIENT_SECRET=
 
 
 - In the case that liquibase cannot find the airbnb_clone database:
-  - In ```server/src/main/resources/application.yml``` comment out 
+  - In ```server/src/main/resources/application.yml``` comment out both 
     - ```default_schema: airbnb_clone```
   - Run the application
     - ```mvn spring-boot:run```
-  - Remove the comment for ```default_schema: airbnb_clone``` and rerun the application
+  - Remove the comment for both ```default_schema: airbnb_clone``` and rerun the application
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
