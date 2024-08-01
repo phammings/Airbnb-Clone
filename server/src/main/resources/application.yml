@@ -2,7 +2,7 @@ logging:
   level:
     ROOT: INFO
     org.hibernate.SQL: DEBUG
-    com.phammings.serverback: DEBUG
+    com.phammings.server: DEBUG
 
 spring:
   profiles:
@@ -11,14 +11,10 @@ spring:
     name: airbnb-clone-back
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://postgres:5432/airbnb_clone
-    username: secret
-    password: secret
-    driver-class-name: org.postgresql.Driver
     hikari:
       poolName: Hikari
       auto-commit: false
-    data:
+  data:
     jpa:
       repositories:
         bootstrap-mode: deferred
@@ -28,11 +24,11 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
-        default_schema: airbnb_clone
+#        default_schema: airbnb_clone
   liquibase:
     contexts: dev
     change-log: classpath:db/changelog/master.xml
-    default-schema: airbnb_clone
+#    default-schema: airbnb_clone
     enabled: true
   #    drop-first: true
   servlet:
