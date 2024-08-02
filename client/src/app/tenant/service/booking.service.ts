@@ -21,6 +21,7 @@ export class BookingService {
     = signal(State.Builder<Array<BookedDatesDTOFromClient>>().forInit());
   checkAvailabilitySig = computed(() => this.checkAvailability$());
 
+
   private getBookedListing$: WritableSignal<State<Array<BookedListing>>>
     = signal(State.Builder<Array<BookedListing>>().forInit());
   getBookedListingSig = computed(() => this.getBookedListing$());
@@ -108,4 +109,5 @@ export class BookingService {
         error: err => this.getBookedListingForLandlord$.set(State.Builder<Array<BookedListing>>().forError(err)),
       });
   }
+
 }

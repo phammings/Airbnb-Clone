@@ -12,10 +12,10 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
     CardListingComponent,
     FaIconComponent
   ],
-  templateUrl: './booking-listing.component.html',
-  styleUrl: './booking-listing.component.scss'
+  templateUrl: './booked-listing.component.html',
+  styleUrl: './booked-listing.component.scss'
 })
-export class BookingListingComponent implements OnInit, OnDestroy {
+export class BookedListingComponent implements OnInit, OnDestroy {
 
   bookingService = inject(BookingService);
   toastService = inject(ToastService);

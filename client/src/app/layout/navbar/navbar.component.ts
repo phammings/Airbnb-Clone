@@ -50,6 +50,7 @@ export class NavbarComponent implements OnInit {
 
   connectedUser: User = {email: this.authService.notConnected};
 
+
   constructor() {
     effect(() => {
       if (this.authService.fetchUser().status === "OK") {
@@ -60,7 +61,6 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.fetch(false);
     this.extractInformationForSearch();
   }
 
@@ -116,6 +116,7 @@ export class NavbarComponent implements OnInit {
         showHeader: true
       })
   }
+
   openNewSearch(): void {
     this.ref = this.dialogService.open(SearchComponent,
       {
