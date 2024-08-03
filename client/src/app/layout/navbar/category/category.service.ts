@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Category, CategoryName} from "./category.model";
 import {BehaviorSubject} from "rxjs";
 
@@ -160,5 +160,4 @@ export class CategoryService {
   getCategoryByTechnicalName(technicalName: CategoryName): Category | undefined {
     return this.categories.find(category => category.technicalName === technicalName);
   }
-
 }

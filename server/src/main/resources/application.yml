@@ -2,7 +2,7 @@ logging:
   level:
     ROOT: INFO
     org.hibernate.SQL: DEBUG
-    com.phammings.server: DEBUG
+    fr.codecake.airbnbcloneback: DEBUG
 
 spring:
   profiles:
@@ -24,13 +24,13 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
-#        default_schema: airbnb_clone
+        default_schema: airbnb_clone
   liquibase:
     contexts: dev
     change-log: classpath:db/changelog/master.xml
-#    default-schema: airbnb_clone
+    default-schema: airbnb_clone
     enabled: true
-  #    drop-first: true
+#    drop-first: true
   servlet:
     multipart:
       enabled: true
@@ -42,9 +42,18 @@ server:
 okta:
   oauth2:
     issuer: https://dev-xqrv0tv2lnvtpqh1.ca.auth0.com/
+    audience: https://dev-xqrv0tv2lnvtpqh1.ca.auth0.com/api/v2/
     client-id: ${AUTH0_CLIENT_ID}
     client-secret: ${AUTH0_CLIENT_SECRET}
+    groups-claim: https://www.codecake.fr/roles
 
 application:
   auth0:
     role-landlord-id: rol_J89Mp7c7UpwnyeAA
+  cors:
+    allowed-origins: "http://localhost:4200"
+    allowed-methods: "*"
+    allowed-headers: "*"
+    exposed-headers: "*"
+    allow-credentials: false
+    max-age: 3600

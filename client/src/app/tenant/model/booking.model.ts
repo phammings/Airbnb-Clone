@@ -33,6 +33,7 @@ export interface BookedDatesDTOFromServer {
   endDate: Date,
 }
 
+
 export interface BookedListing {
   location: string,
   cover: DisplayPicture,
