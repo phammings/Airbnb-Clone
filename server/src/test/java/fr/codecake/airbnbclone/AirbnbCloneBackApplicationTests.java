@@ -1,4 +1,4 @@
-package fr.codecake.airbnbclone;
+package com.phammings.airbnbclone;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

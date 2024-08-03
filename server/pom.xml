@@ -8,7 +8,7 @@
         <version>3.2.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>fr.codecake</groupId>
+    <groupId>com.phammings</groupId>
     <artifactId>airbnb-clone-back</artifactId>
     <version>0.0.2</version>
     <name>airbnb-clone-back</name>
