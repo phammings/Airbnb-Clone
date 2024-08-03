@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.phammings</groupId>
     <artifactId>airbnb-clone-back</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.1</version>
     <name>airbnb-clone-back</name>
     <description>Airbnb Clone API</description>
     <properties>
@@ -97,9 +97,9 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                         <image>
-                            <name>merlinofcha0s/airbnb-clone-backend:${project.version}</name>
+                            <name>phammings/airbnb-clone:${project.version}</name>
                             <env>
-                                <BP_JVM_VERSION>21.0.3</BP_JVM_VERSION>
+                                <BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>
                                 <BP_JVM_CDS_ENABLED>true</BP_JVM_CDS_ENABLED>
                             </env>
                         </image>
