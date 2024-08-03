@@ -4,11 +4,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="00000000000003-seq" author="codecake">
+    <changeSet id="00000000000003-seq" author="phammings">
         <createSequence sequenceName="booking_generator" startValue="1" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="00000000000003" author="codecake">
+    <changeSet id="00000000000003" author="phammings">
         <createTable tableName="booking">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
