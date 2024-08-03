@@ -30,7 +30,7 @@ spring:
     change-log: classpath:db/changelog/master.xml
     default-schema: airbnb_clone
     enabled: true
-    drop-first: true
+#    drop-first: true
   servlet:
     multipart:
       enabled: true
