@@ -1,4 +1,4 @@
-const BACKEND_URL = "https://airbnb-api.codecake.fr";
+const BACKEND_URL = "https://airbnb-backend.ryanlepham.com";
 
 export const environment = {
   BACKEND_URL: BACKEND_URL,
