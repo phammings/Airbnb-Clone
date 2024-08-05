@@ -37,7 +37,7 @@ The project focuses on creating a full stack Airbnb clone application. The backe
 
 The project is deployed on an AWS EC2 instance self-hosted through Coolify. For the CI/CD process, I implemented Github actions to automatically create frontend and backend docker image is pushed to my docker hub and redeployed through Coolify.
 
-## [Live Demo 🔗](https://www.ryanlepham.com/)
+## [Live Demo 🔗](https://airbnb.ryanlepham.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
