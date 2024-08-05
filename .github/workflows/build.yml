@@ -14,4 +14,4 @@ jobs:
       - uses: actions/checkout@v2
       - name: Notify Coolify
         run: |
-          curl --request GET '${{ secrets.COOLIFY_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'
+          curl --request GET '${{ secrets.COOLIFY_FRONTEND_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'
