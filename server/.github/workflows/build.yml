@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - deploy-coolify
+      - develop
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
