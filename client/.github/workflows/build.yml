@@ -1,0 +1,17 @@
+name: Build Frontend
+on:
+  push:
+    branches:
+      - main
+      - frontend-deploy
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  notify:
+    name: Notify Coolify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Notify Coolify
+        run: |
+          curl --request GET '${{ secrets.COOLIFY_FRONTEND_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'
