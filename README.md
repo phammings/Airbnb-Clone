@@ -116,12 +116,12 @@ AUTH0_CLIENT_SECRET=
       2) ```mvn spring-boot:run```
 
 
-- In the case that liquibase cannot find the airbnb_clone database:
-  - In ```server/src/main/resources/application.yml``` comment out both 
-    - ```default_schema: airbnb_clone```
+- In the case that there are duplicate tables in the airbnb_clone database:
+  - In ```server/src/main/resources/application.yml``` uncomment 
+    - ```drop-first: true```
   - Run the application
     - ```mvn spring-boot:run```
-  - Remove the comment for both ```default_schema: airbnb_clone``` and rerun the application
+  - Recomment ```drop-first: true``` for future runs
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
