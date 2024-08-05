@@ -25,7 +25,7 @@ server:
 
 application:
   cors:
-    allowed-origins: "https://airbnbclone.codecake.fr"
+    allowed-origins: "https://airbnb.ryanlepham.com"
   auth0:
     role-landlord-id: ${AUTH0_ROLE_LANDLORD_ID}
 

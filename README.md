@@ -35,6 +35,10 @@
 
 The project focuses on creating a full stack Airbnb clone application. The backend is built with Spring Boot Java, interfacing with a PostgreSQL database. The frontend is developed with Angular, providing a dynamic and responsive user interface. The application includes full user authentication and authorization with Auth0, supporting role management. It features booking management for travelers, reservation management for landlords, and search functionalities by various criteria like location, date, and number of guests.
 
+The project is deployed on an AWS EC2 instance self-hosted through Coolify. For the CI/CD process, I implemented Github actions to automatically create frontend and backend docker image is pushed to my docker hub and redeployed through Coolify.
+
+## [Live Demo 🔗](https://airbnb.ryanlepham.com/)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -46,8 +50,10 @@ The project focuses on creating a full stack Airbnb clone application. The backe
 * [![Maven][Maven]][Maven-url]
 * [![PostgreSQL][PostgreSQL]][PostgreSQL-url]
 * [![Angular][Angular]][Angular-url]
-* [![Docker][Docker]][Docker-url]
 * [![Auth0][Auth0]][Auth0-url]
+* [![Docker][Docker]][Docker-url]
+* [![EC2][EC2]][EC2-url]
+* [![Coolify][Coolify]][Coolify-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -61,12 +67,15 @@ The project focuses on creating a full stack Airbnb clone application. The backe
 - ✔️ Implement reservation management for landlords
 - ✔️ Develop search functionalities by location, date, guests, and other criteria
 - ✔️ Utilize Docker for containerized deployment and easy setup across different environments
+- ✔️ Deployed on AWS EC2 and self-hosted through Coolify
+- ✔️ Used Github Actions for CI/CD to automatically create and push docker image of app backend
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- INSTRUCTIONS -->
-## Instructions
+## Instructions for Local Setup
 
 #### 1) Setup .env file from .env.example
 
@@ -95,7 +104,7 @@ AUTH0_CLIENT_SECRET=
 
 <br/>
 
-#### 2a) Docker Installtion (Recommended)
+#### 2a) Docker Installation (Recommended)
 - Ensure Docker is installed and running on your system
     - See https://docs.docker.com/ for installation instructions
 1) Build the Docker image and ensure no previous cache is used:
@@ -116,12 +125,12 @@ AUTH0_CLIENT_SECRET=
       2) ```mvn spring-boot:run```
 
 
-- In the case that liquibase cannot find the airbnb_clone database:
-  - In ```server/src/main/resources/application.yml``` comment out both 
-    - ```default_schema: airbnb_clone```
+- In the case that there are duplicate tables in the airbnb_clone database:
+  - In ```server/src/main/resources/application.yml``` uncomment 
+    - ```drop-first: true```
   - Run the application
     - ```mvn spring-boot:run```
-  - Remove the comment for both ```default_schema: airbnb_clone``` and rerun the application
+  - Recomment ```drop-first: true``` for future runs
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -150,3 +159,7 @@ AUTH0_CLIENT_SECRET=
 [Docker-url]: https://www.docker.com/
 [Auth0]: https://img.shields.io/badge/Auth0-%230A0A0A.svg?style=for-the-badge&logo=Auth0&logoColor=white
 [Auth0-url]: https://auth0.com/
+[EC2]: https://img.shields.io/badge/AWS%20EC2-FF9900.svg?style=for-the-badge&logo=amazonec2&logoColor=black
+[EC2-url]: https://aws.amazon.com/ec2/
+[Coolify]: https://img.shields.io/badge/Coolify-black.svg?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNTAwIiB6b29tQW5kUGFuPSJtYWduaWZ5IiB2aWV3Qm94PSIwIDAgMzc1IDM3NC45OTk5OTEiIGhlaWdodD0iNTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0IiB2ZXJzaW9uPSIxLjAiPjxkZWZzPjxnLz48L2RlZnM+PGcgZmlsbD0iIzhjNTJmZiIgZmlsbC1vcGFjaXR5PSIwLjMwMiI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODQuNjYzNzkzLCAzMTAuMDE2NDg0KSI+PGc+PHBhdGggZD0iTSA2MyAtMTY4IEwgMjEgLTE2OCBMIDIxIC00MiBMIDYzIC00MiBaIE0gNjMgMCBMIDIzMSAwIEwgMjMxIC00MiBMIDYzIC00MiBaIE0gNjMgLTE2OCBMIDIzMSAtMTY4IEwgMjMxIC0yMTAgTCA2MyAtMjEwIFogTSA2MyAtMTY4ICIvPjwvZz48L2c+PC9nPjxnIGZpbGw9IiM4YzUyZmYiIGZpbGwtb3BhY2l0eT0iMC41MDIiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDcxLjQwNTUzNywgMjk2Ljc1ODIzMykiPjxnPjxwYXRoIGQ9Ik0gNjMgLTE2OCBMIDIxIC0xNjggTCAyMSAtNDIgTCA2MyAtNDIgWiBNIDYzIDAgTCAyMzEgMCBMIDIzMSAtNDIgTCA2MyAtNDIgWiBNIDYzIC0xNjggTCAyMzEgLTE2OCBMIDIzMSAtMjEwIEwgNjMgLTIxMCBaIE0gNjMgLTE2OCAiLz48L2c+PC9nPjwvZz48ZyBmaWxsPSIjOGM1MmZmIiBmaWxsLW9wYWNpdHk9IjEiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDU4LjE0NzI4NywgMjgzLjQ5OTk4MSkiPjxnPjxwYXRoIGQ9Ik0gNjMgLTE2OCBMIDIxIC0xNjggTCAyMSAtNDIgTCA2MyAtNDIgWiBNIDYzIDAgTCAyMzEgMCBMIDIzMSAtNDIgTCA2MyAtNDIgWiBNIDYzIC0xNjggTCAyMzEgLTE2OCBMIDIzMSAtMjEwIEwgNjMgLTIxMCBaIE0gNjMgLTE2OCAiLz48L2c+PC9nPjwvZz48L3N2Zz4=
+[Coolify-url]: https://coolify.io/
