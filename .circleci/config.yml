@@ -3,7 +3,7 @@ version: 2.1
 executors:
   arm64-executor:
     docker:
-      - image: cimg/openjdk:21.0.1-node
+      - image: openjdk:21-slim
     resource_class: arm.medium
 
 jobs:
@@ -11,11 +11,6 @@ jobs:
     executor: arm64-executor
     steps:
       - checkout
-      - run:
-          name: Set up JDK 21
-          command: |
-            sudo apt-get update && sudo apt-get install -y openjdk-21-jdk
-            java -version
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }}
