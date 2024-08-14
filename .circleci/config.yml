@@ -42,7 +42,8 @@ jobs:
           command: docker push phammings/airbnb-clone:${POM_VERSION}
       - run:
           name: Notify Coolify
-          command: curl --request GET "${COOLIFY_WEBHOOK}" --header "Authorization: Bearer ${COOLIFY_TOKEN}"
+          command: |
+            curl --request GET "${COOLIFY_WEBHOOK}" --header "Authorization: Bearer ${COOLIFY_TOKEN}"
 
 workflows:
   version: 2
