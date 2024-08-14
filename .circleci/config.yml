@@ -3,7 +3,7 @@ version: 2.1
 executors:
   arm64-executor:
     docker:
-      - image: cimg/openjdk:21.0.2
+      - image: maven:3.8.8-openjdk-21
     resource_class: arm.medium
 
 jobs:
@@ -11,11 +11,6 @@ jobs:
     executor: arm64-executor
     steps:
       - checkout
-      - run:
-          name: Install Maven
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y maven
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }}
