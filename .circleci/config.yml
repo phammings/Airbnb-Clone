@@ -10,8 +10,6 @@ jobs:
   build:
     executor: arm64-executor
     steps:
-      - setup_remote_docker:
-          version: 24.0.9
       - checkout
       - run:
           name: Install Maven
