@@ -1,0 +1,46 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: arm64v8/maven:3.8.5-openjdk-21  # Use an arm64-compatible Maven Docker image
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+          docker_layer_caching: true
+      - run:
+          name: Cache Maven packages
+          command: |
+            docker run --rm -v $HOME/.m2:/root/.m2 arm64v8/maven:3.8.5-openjdk-21 mvn dependency:go-offline
+      - run:
+          name: Build Docker Image
+          command: |
+            mvn clean spring-boot:build-image -Dmaven.test.skip=true
+      - run:
+          name: Get POM Version
+          command: |
+            echo "POM_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $BASH_ENV
+      - run:
+          name: Login to Docker Hub
+          command: |
+            echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - run:
+          name: Push to Docker Hub
+          command: |
+            docker push phammings/airbnb-clone:${POM_VERSION}
+      - run:
+          name: Notify Coolify
+          command: |
+            curl --request GET '${COOLIFY_WEBHOOK}' --header 'Authorization: Bearer ${COOLIFY_TOKEN}'
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - main
+                - backend-deploy
