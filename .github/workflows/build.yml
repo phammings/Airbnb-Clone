@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest, arm64]
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 21
@@ -24,7 +24,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build
-        run: mvn clean spring-boot:build-image -Dmaven.test.skip=true -Dspring-boot.build-image.environment.BP_PLATFORM=linux/arm64
+        run: mvn clean spring-boot:build-image -Dmaven.test.skip=true
       - name: get-pom-version
         run: |
           echo "POM_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
