@@ -53,6 +53,7 @@ The project is deployed on an AWS EC2 instance self-hosted through Coolify. For 
 * [![Auth0][Auth0]][Auth0-url]
 * [![Docker][Docker]][Docker-url]
 * [![EC2][EC2]][EC2-url]
+* [![Hetzner][Hetzner]][Hetzner-url]
 * [![Coolify][Coolify]][Coolify-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -68,6 +69,7 @@ The project is deployed on an AWS EC2 instance self-hosted through Coolify. For 
 - ✔️ Develop search functionalities by location, date, guests, and other criteria
 - ✔️ Utilize Docker for containerized deployment and easy setup across different environments
 - ✔️ Deployed on AWS EC2 and self-hosted through Coolify
+- ️️✔️ Migrated cloud server to Hetzner Cloud to reduce costs by 50%
 - ✔️ Used Github Actions for CI/CD to automatically create and push docker image of app backend
 
 
@@ -161,5 +163,7 @@ AUTH0_CLIENT_SECRET=
 [Auth0-url]: https://auth0.com/
 [EC2]: https://img.shields.io/badge/AWS%20EC2-FF9900.svg?style=for-the-badge&logo=amazonec2&logoColor=black
 [EC2-url]: https://aws.amazon.com/ec2/
+[Hetzner]: https://img.shields.io/badge/hetzner-D50C2D.svg?style=for-the-badge&logo=hetzner&logoColor=white
+[Hetzner-url]: https://www.hetzner.com/
 [Coolify]: https://img.shields.io/badge/Coolify-black.svg?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNTAwIiB6b29tQW5kUGFuPSJtYWduaWZ5IiB2aWV3Qm94PSIwIDAgMzc1IDM3NC45OTk5OTEiIGhlaWdodD0iNTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0IiB2ZXJzaW9uPSIxLjAiPjxkZWZzPjxnLz48L2RlZnM+PGcgZmlsbD0iIzhjNTJmZiIgZmlsbC1vcGFjaXR5PSIwLjMwMiI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODQuNjYzNzkzLCAzMTAuMDE2NDg0KSI+PGc+PHBhdGggZD0iTSA2MyAtMTY4IEwgMjEgLTE2OCBMIDIxIC00MiBMIDYzIC00MiBaIE0gNjMgMCBMIDIzMSAwIEwgMjMxIC00MiBMIDYzIC00MiBaIE0gNjMgLTE2OCBMIDIzMSAtMTY4IEwgMjMxIC0yMTAgTCA2MyAtMjEwIFogTSA2MyAtMTY4ICIvPjwvZz48L2c+PC9nPjxnIGZpbGw9IiM4YzUyZmYiIGZpbGwtb3BhY2l0eT0iMC41MDIiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDcxLjQwNTUzNywgMjk2Ljc1ODIzMykiPjxnPjxwYXRoIGQ9Ik0gNjMgLTE2OCBMIDIxIC0xNjggTCAyMSAtNDIgTCA2MyAtNDIgWiBNIDYzIDAgTCAyMzEgMCBMIDIzMSAtNDIgTCA2MyAtNDIgWiBNIDYzIC0xNjggTCAyMzEgLTE2OCBMIDIzMSAtMjEwIEwgNjMgLTIxMCBaIE0gNjMgLTE2OCAiLz48L2c+PC9nPjwvZz48ZyBmaWxsPSIjOGM1MmZmIiBmaWxsLW9wYWNpdHk9IjEiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDU4LjE0NzI4NywgMjgzLjQ5OTk4MSkiPjxnPjxwYXRoIGQ9Ik0gNjMgLTE2OCBMIDIxIC0xNjggTCAyMSAtNDIgTCA2MyAtNDIgWiBNIDYzIDAgTCAyMzEgMCBMIDIzMSAtNDIgTCA2MyAtNDIgWiBNIDYzIC0xNjggTCAyMzEgLTE2OCBMIDIzMSAtMjEwIEwgNjMgLTIxMCBaIE0gNjMgLTE2OCAiLz48L2c+PC9nPjwvZz48L3N2Zz4=
 [Coolify-url]: https://coolify.io/
